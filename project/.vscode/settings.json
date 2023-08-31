@@ -1,0 +1,21 @@
+{
+    "files.associations": {
+        "control.h": "c",
+        "main.h": "c",
+        "mdr32f9qx_config.h": "c",
+        "mdr32f9qx_lib.h": "c",
+        "mdr32f9qx_board.h": "c",
+        "mdr32fx.h": "c",
+        "protocol_vu.h": "c",
+        "string.h": "c",
+        "_ansi.h": "c",
+        "cdefs.h": "c",
+        "reent.h": "c",
+        "mdr32f9qx_port.h": "c",
+        "mdr32f9qx_rst_clk.h": "c",
+        "mdr32f9qx_adc.h": "c",
+        "mdr32f9qx_dma.h": "c",
+        "mdr32f9qx_timer.h": "c"
+    },
+    "cortex-debug.variableUseNaturalFormat": true
+}
