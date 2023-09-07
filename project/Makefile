@@ -47,25 +47,25 @@ lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_port.c \
 lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_adc.c \
 lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_dma.c \
 lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.c \
-lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_uart.c 
-# lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_ssp.c \
-# lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_arinc429r.c \
-# lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_arinc429t.c \
-# lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_audio.c \
+lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_uart.c \
+lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_ssp.c \
+lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_arinc429r.c \
+lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_arinc429t.c \
+lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_audio.c \
+lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_can.c \
+lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_comp.c \
+lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_dac.c \
+lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_ebc.c \
+lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_eth.c \
+lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_i2c.c \
+lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_iwdg.c \
+lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_keypad.c \
+lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_led.c \
+lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_mil_std_1553.c \
+lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_power.c \
+lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_wwdg.c \
 # lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_bkp.c \
-# lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_can.c \
-# lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_comp.c \
-# lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_dac.c \
-# lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_ebc.c \
 # lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_eeprom.c \
-# lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_eth.c \
-# lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_i2c.c \
-# lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_iwdg.c \
-# lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_keypad.c \
-# lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_led.c \
-# lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_mil_std_1553.c \
-# lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_power.c \
-# lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_wwdg.c \
 
 C_SOURCES = $(C_FILES) $(C_LIBS)
 
@@ -143,9 +143,9 @@ C_INCLUDES =  \
 EXTRA_DATA = -Wextra -Wshadow -Wredundant-decls -Wno-missing-field-initializers -Wconversion -Wno-packed-bitfield-compat -pipe
 
 # compile gcc flags
-ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections $(EXTRA_DATA)
+ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections -flto $(EXTRA_DATA)
 
-CFLAGS = $(MCU) $(C_DEFS) $(C_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections $(EXTRA_DATA)
+CFLAGS = $(MCU) $(C_DEFS) $(C_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections -flto $(EXTRA_DATA)
 
 ifeq ($(DEBUG), 1)
 CFLAGS += -g -gdwarf-2
