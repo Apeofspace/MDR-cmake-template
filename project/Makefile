@@ -47,6 +47,8 @@ lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_port.c \
 lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_adc.c \
 lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_dma.c \
 lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_usb.c \
+lib/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_CDC.c \
+lib/MDR32F9Qx_StdPeriph_Driver/src/USB_Library/MDR32F9Qx_usb_device.c \
 lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_uart.c \
 lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_ssp.c \
 lib/MDR32F9Qx_StdPeriph_Driver/src/MDR32F9Qx_arinc429r.c \
