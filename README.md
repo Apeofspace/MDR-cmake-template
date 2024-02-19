@@ -1,7 +1,7 @@
 # Проект для Milandr K1986BE92QI для VSCode + JLink + Linux 
-
 Пустой настроенный проект для K1986BE92QI для VSCode + JLink + Linux.
 В проект включены все библиотеки CMSIS и STD и все остальные файлы для настройки проекта.
+
 ## Требуемые пакеты
 Для работы требуются пакеты:
 ```
@@ -13,7 +13,6 @@ sudo apt install gcc-arm-none-eabi
 Так-же необходимо установить J-Link, актуальную версию можно взять [здесь](https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack). 
 
 ## Настройка J-Link
-
 J-Link не поддерживает миландры из коробки, необходимо его научить
 1. Скачайте пак миландра с [сайта миландра](https://ic.milandr.ru/soft/) (приложен к проекту)
 2. Файл `1986BE9x.FLM` из архиве поместите в папку SEGGER: `home/<username>/.config/SEGGER/JLinkDevices/Milandr` 
@@ -45,13 +44,15 @@ connect
 ```
 Откроется окно выбора устройства, K1986BE92 должен быть в списке.
 
-## VScode
+## Перед использованием
+Проверить имена проекта в `CMakeLists.txt` и файлах в папке `JLink`
 
+## VScode
 Требуются расширения:
 -  C/C++
 -  Cortex Debug
 -  Makefile Tools
 
-
 Комплиляция стандартными средствами VSCode через `Ctrl+Shift+B` или `Ctrl+Shift+P`, и далее `Run task:`. 
 Дебаг кнопкой дебага в боковом меню
+
