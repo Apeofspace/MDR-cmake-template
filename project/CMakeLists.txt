@@ -112,12 +112,17 @@ else ()
 endif ()
 
 #-----BUILD COMMANDS-----
-add_executable(${PROJECT_NAME}.elf ${C_SRC} ${C_LIBS} ${STARTUP_SCRIPT} ${LINKER_SCRIPT})
-set(HEX_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.hex)
-set(BIN_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.bin)
+set(OUTPUT_NAME output.elf)
+# set(OUTPUT_NAME ${PROJECT_NAME}.elf)
+add_executable(${OUTPUT_NAME} ${C_SRC} ${C_LIBS} ${STARTUP_SCRIPT} ${LINKER_SCRIPT})
+set(HEX_FILE ${PROJECT_BINARY_DIR}/output.hex)
+set(BIN_FILE ${PROJECT_BINARY_DIR}/output.bin)
 
-add_custom_command(TARGET ${PROJECT_NAME}.elf POST_BUILD
-    COMMAND ${CMAKE_OBJCOPY} -Oihex $<TARGET_FILE:${PROJECT_NAME}.elf> ${HEX_FILE}
-    COMMAND ${CMAKE_OBJCOPY} -Obinary $<TARGET_FILE:${PROJECT_NAME}.elf> ${BIN_FILE}
+# target_link_libraries(${OUTPUT_NAME} m) # link math.h 
+
+add_custom_command(TARGET ${OUTPUT_NAME} POST_BUILD
+    COMMAND ${CMAKE_OBJCOPY} -Oihex $<TARGET_FILE:${OUTPUT_NAME}> ${HEX_FILE}
+    COMMAND ${CMAKE_OBJCOPY} -Obinary $<TARGET_FILE:${OUTPUT_NAME}> ${BIN_FILE}
     COMMENT "Building ${HEX_FILE}
     Building ${BIN_FILE}")
+
