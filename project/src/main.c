@@ -2,12 +2,12 @@
 
 void init_CPU() {
 //attempts HSE
-// оисциллятор стоит 16 мГц, аккуратно с множителем
+// оисциллятор стоит 8 мГц, аккуратно с множителем
   MDR_RST_CLK->HS_CONTROL = RST_CLK_HSE_ON; //Вкл. HSE
   if (RST_CLK_HSEstatus() == SUCCESS) {
     MDR_RST_CLK->CPU_CLOCK = (2 << 0); // set HSE
     MDR_RST_CLK->CPU_CLOCK |= (0 << 4); // set c3 to c2/1
-    MDR_RST_CLK->PLL_CONTROL |= (4 << 8); // 4+1 multiplier for PLL_CPU
+    MDR_RST_CLK->PLL_CONTROL |= (9 << 8); // 4+1 multiplier for PLL_CPU
     MDR_RST_CLK->PLL_CONTROL |= (1 << 2); // enable PLL_CPU
     MDR_RST_CLK->CPU_CLOCK |= (1 << 2); // set c2 to PLL_CPU
     MDR_RST_CLK->CPU_CLOCK |= (1 << 8); // set HCLK to c3
