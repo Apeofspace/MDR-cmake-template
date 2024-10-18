@@ -115,8 +115,8 @@ endif ()
 set(OUTPUT_NAME output.elf)
 # set(OUTPUT_NAME ${PROJECT_NAME}.elf)
 add_executable(${OUTPUT_NAME} ${C_SRC} ${C_LIBS} ${STARTUP_SCRIPT} ${LINKER_SCRIPT})
-set(HEX_FILE ${PROJECT_BINARY_DIR}/output.hex)
-set(BIN_FILE ${PROJECT_BINARY_DIR}/output.bin)
+set(HEX_FILE ${PROJECT_BINARY_DIR}/${OUTPUT_NAME})
+set(BIN_FILE ${PROJECT_BINARY_DIR}/${OUTPUT_NAME})
 
 # target_link_libraries(${OUTPUT_NAME} m) # link math.h 
 
