@@ -1,17 +1,18 @@
 #include "main.h"
 
 void init_CPU() {
-  //attempts HSE
+//attempts HSE
+// оисциллятор стоит 16 мГц, аккуратно с множителем
   MDR_RST_CLK->HS_CONTROL = RST_CLK_HSE_ON; //Вкл. HSE
   if (RST_CLK_HSEstatus() == SUCCESS) {
-    MDR_RST_CLK->CPU_CLOCK =
-      0x00000102; //Предварительно меняем мультиплексор c2 на CPU_C1
-    MDR_RST_CLK->PLL_CONTROL = ((1 << 2) | (9 << 8));//вкл. PLL  | коэф. умножения = 9+1
-    while ((MDR_RST_CLK->CLOCK_STATUS & RST_CLK_CLOCK_STATUS_PLL_CPU_RDY) !=
-           RST_CLK_CLOCK_STATUS_PLL_CPU_RDY);// Ждём PLL_CPU
-    MDR_RST_CLK->CPU_CLOCK = 0x00000106; // меняем мультиплексор с2 на PLLCPU
+    MDR_RST_CLK->CPU_CLOCK = (2 << 0); // set HSE
+    MDR_RST_CLK->CPU_CLOCK |= (0 << 4); // set c3 to c2/1
+    MDR_RST_CLK->PLL_CONTROL |= (4 << 8); // 4+1 multiplier for PLL_CPU
+    MDR_RST_CLK->PLL_CONTROL |= (1 << 2); // enable PLL_CPU
+    MDR_RST_CLK->CPU_CLOCK |= (1 << 2); // set c2 to PLL_CPU
+    MDR_RST_CLK->CPU_CLOCK |= (1 << 8); // set HCLK to c3
   } else {
-    // HSI
+// HSE failed, try HSI
     MDR_RST_CLK->HS_CONTROL = 0; //HSE OFF
     MDR_RST_CLK->CPU_CLOCK = 0 << 8; //HCLK -> HSI
     MDR_RST_CLK->CPU_CLOCK |= 0 << 2; //c2 -> c1
