@@ -7,7 +7,8 @@ void init_CPU() {
   if (RST_CLK_HSEstatus() == SUCCESS) {
     MDR_RST_CLK->CPU_CLOCK = (2 << 0); // set HSE
     MDR_RST_CLK->CPU_CLOCK |= (0 << 4); // set c3 to c2/1
-    MDR_RST_CLK->PLL_CONTROL |= (9 << 8); // 4+1 multiplier for PLL_CPU
+    MDR_RST_CLK->PLL_CONTROL |= (9 << 8); // 9+1 multiplier for PLL_CPU 
+    // NOTE make sure that HSE_Value is set up correctly
     MDR_RST_CLK->PLL_CONTROL |= (1 << 2); // enable PLL_CPU
     MDR_RST_CLK->CPU_CLOCK |= (1 << 2); // set c2 to PLL_CPU
     MDR_RST_CLK->CPU_CLOCK |= (1 << 8); // set HCLK to c3
