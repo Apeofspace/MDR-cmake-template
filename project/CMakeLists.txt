@@ -17,7 +17,7 @@ set(MCU_MODEL MDR1986VE9x)
 
 #----COMPILER SETTINGS----
 enable_language(C CXX ASM)
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD 23)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS ON)
 set(CMAKE_CXX_STANDARD 17)
@@ -39,19 +39,19 @@ set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 file(GLOB_RECURSE C_SRC CONFIGURE_DEPENDS "src/*.c" )
 
 file(GLOB_RECURSE C_LIBS CONFIGURE_DEPENDS
-    ${CMAKE_SOURCE_DIR}/lib/*.c
+   lib/*.c
     # problems with bkp and eeprom and IRQ templates
     )
 
 include_directories(
-   ${CMAKE_SOURCE_DIR}/lib 
-   ${CMAKE_SOURCE_DIR}/lib/Config 
-   ${CMAKE_SOURCE_DIR}/lib/CMSIS/CM3/DeviceSupport/MDR32F9Qx/inc 
-   ${CMAKE_SOURCE_DIR}/lib/MDR32F9Qx_StdPeriph_Driver/inc 
-   ${CMAKE_SOURCE_DIR}/lib/MDR32F9Qx_StdPeriph_Driver/inc/USB_Library 
-   ${CMAKE_SOURCE_DIR}/lib/CMSIS/CM3/CoreSupport 
-   ${CMAKE_SOURCE_DIR}/lib/CMSIS/CM3/DeviceSupport/MDR32F9Qx/startup/gcc 
-   # ${CMAKE_SOURCE_DIR}/lib/MDR32F9Qx_StdPeriph_Driver/inc/IRQ_Handler_Template
+   src 
+   lib 
+   lib/Config 
+   lib/CMSIS/CM3/DeviceSupport/MDR32F9Qx/inc 
+   lib/MDR32F9Qx_StdPeriph_Driver/inc 
+   lib/MDR32F9Qx_StdPeriph_Driver/inc/USB_Library 
+   lib/CMSIS/CM3/CoreSupport 
+   lib/CMSIS/CM3/DeviceSupport/MDR32F9Qx/startup/gcc 
    )
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/lib/CMSIS/CM3/DeviceSupport/MDR32F9Qx/startup/gcc/MDR32F9Qx.ld)
@@ -118,11 +118,13 @@ add_executable(${OUTPUT_NAME}.elf ${C_SRC} ${C_LIBS} ${STARTUP_SCRIPT} ${LINKER_
 set(HEX_FILE ${PROJECT_BINARY_DIR}/${OUTPUT_NAME}.hex)
 set(BIN_FILE ${PROJECT_BINARY_DIR}/${OUTPUT_NAME}.bin)
 
-# target_link_libraries(${OUTPUT_NAME} m) # link math.h 
+target_link_libraries(${OUTPUT_NAME}.elf m) # link math.h 
+# target_link_libraries(${OUTPUT_NAME}.elf c)
 
 add_custom_command(TARGET ${OUTPUT_NAME}.elf POST_BUILD
     COMMAND ${CMAKE_OBJCOPY} -Oihex $<TARGET_FILE:${OUTPUT_NAME}.elf> ${HEX_FILE}
     COMMAND ${CMAKE_OBJCOPY} -Obinary $<TARGET_FILE:${OUTPUT_NAME}.elf> ${BIN_FILE}
     COMMENT "Building ${HEX_FILE}
     Building ${BIN_FILE}")
+
 
