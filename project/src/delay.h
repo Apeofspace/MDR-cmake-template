@@ -3,8 +3,8 @@
 #include "MDR32Fx.h"
 #include "stdbool.h"
 
-volatile uint32_t msSinceStart;
-bool SysTickInitialized;
+extern volatile uint32_t msSinceStart;
+extern bool SysTickInitialized;
 
 #define GetMs() (msSinceStart)
 

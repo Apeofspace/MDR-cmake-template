@@ -1,7 +1,5 @@
 #include "delay.h"
 
-/* Blocking delay using systick on be92 */
-
 volatile uint32_t msSinceStart = 0;
 bool SysTickInitialized = false;
 
@@ -12,10 +10,12 @@ void init_SysTick() {
   SysTickInitialized = true;
 }
 
+/* Count time */
 void SysTick_Handler(void) {
-  msSinceStart++;
+  msSinceStart++; // used in all kind of things
 }
 
+/* Blocking delay using systick on be92 */
 uint8_t MDR_Delay(uint32_t ms) {
   uint8_t res = 0;
   volatile uint32_t t0 = GetMs();

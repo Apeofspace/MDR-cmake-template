@@ -43,16 +43,30 @@ file(GLOB_RECURSE C_LIBS CONFIGURE_DEPENDS
     # problems with bkp and eeprom and IRQ templates
     )
 
-include_directories(
-   src 
-   lib 
-   lib/Config 
-   lib/CMSIS/CM3/DeviceSupport/MDR32F9Qx/inc 
-   lib/MDR32F9Qx_StdPeriph_Driver/inc 
-   lib/MDR32F9Qx_StdPeriph_Driver/inc/USB_Library 
-   lib/CMSIS/CM3/CoreSupport 
-   lib/CMSIS/CM3/DeviceSupport/MDR32F9Qx/startup/gcc 
-   )
+MACRO(HEADER_DIRECTORIES return_list)
+    FILE(GLOB_RECURSE new_list CONFIGURE_DEPENDS *.h)
+    SET(dir_list "")
+    FOREACH(file_path ${new_list})
+        GET_FILENAME_COMPONENT(dir_path ${file_path} PATH)
+        SET(dir_list ${dir_list} ${dir_path})
+    ENDFOREACH()
+    LIST(REMOVE_DUPLICATES dir_list)
+    SET(${return_list} ${dir_list})
+ENDMACRO()
+
+HEADER_DIRECTORIES(INCLUDE_DIRS)
+# include_directories(${INCLUDE_DIRS}) # use target_include_directories instead
+
+# include_directories(
+#    src 
+#    lib 
+#    lib/Config 
+#    lib/CMSIS/CM3/DeviceSupport/MDR32F9Qx/inc 
+#    lib/MDR32F9Qx_StdPeriph_Driver/inc 
+#    lib/MDR32F9Qx_StdPeriph_Driver/inc/USB_Library 
+#    lib/CMSIS/CM3/CoreSupport 
+#    lib/CMSIS/CM3/DeviceSupport/MDR32F9Qx/startup/gcc 
+#    )
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/lib/CMSIS/CM3/DeviceSupport/MDR32F9Qx/startup/gcc/MDR32F9Qx.ld)
 set(STARTUP_SCRIPT ${CMAKE_SOURCE_DIR}/lib/CMSIS/CM3/DeviceSupport/MDR32F9Qx/startup/gcc/startup_MDR32F9Qx.s) 
@@ -119,6 +133,7 @@ set(HEX_FILE ${PROJECT_BINARY_DIR}/${OUTPUT_NAME}.hex)
 set(BIN_FILE ${PROJECT_BINARY_DIR}/${OUTPUT_NAME}.bin)
 
 target_link_libraries(${OUTPUT_NAME}.elf m) # link math.h 
+target_include_directories(${OUTPUT_NAME}.elf PRIVATE ${INCLUDE_DIRS})
 # target_link_libraries(${OUTPUT_NAME}.elf c)
 
 add_custom_command(TARGET ${OUTPUT_NAME}.elf POST_BUILD

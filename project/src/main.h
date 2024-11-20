@@ -7,7 +7,7 @@
 // #include "MDR32F9Qx_port.h"
 // #include "MDR32F9Qx_timer.h"
 
+void init_CPU();
+
 #endif
 
-
-void init_CPU();
