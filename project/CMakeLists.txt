@@ -97,8 +97,10 @@ add_link_options(
     -T ${LINKER_SCRIPT}
     -mcpu=${MCPU}
     -mthumb
-    -specs=nano.specs 
-    -lc -lm -lnosys 
+    # -lm 
+    # --specs=nano.specs 
+    -lm -lnosys 
+    --specs=nosys.specs 
     -Wl,-Map=${PROJECT_BINARY_DIR}/${PROJECT_NAME}.map,--cref -Wl,--gc-sections)
 
 # Uncomment to mitigate c++17 absolute addresses warnings
@@ -113,10 +115,10 @@ add_link_options(
 #-----BUILD TYPE-----
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
     message(STATUS "Maximum optimization for speed")
-    add_compile_options(-Ofast)
+    add_compile_options(-O3)
 elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "RelWithDebInfo")
     message(STATUS "Maximum optimization for speed, debug info included")
-    add_compile_options(-Ofast -g)
+    add_compile_options(-O3 -g)
 elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "MinSizeRel")
     message(STATUS "Maximum optimization for size")
     add_compile_options(-Os)
