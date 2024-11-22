@@ -5,11 +5,10 @@ endif()
 
 #-----PROJECT NAME-----
 # this hack puts dir name as project name
-# for serious project its better to set up actual name (also do it in Makefile)
-# (also do it in JLink files)
 cmake_path(GET CMAKE_CURRENT_SOURCE_DIR FILENAME ProjectName)   
 string(REPLACE " " "_" ProjectId ${ProjectName})
 project(${ProjectName})
+set(OUTPUT_NAME ${OUTPUT_BIN_NAME})
 
 #-----MCU-----
 set(MCPU cortex-m3)
@@ -101,7 +100,9 @@ add_link_options(
     # --specs=nano.specs 
     -lm -lnosys 
     --specs=nosys.specs 
-    -Wl,-Map=${PROJECT_BINARY_DIR}/${PROJECT_NAME}.map,--cref -Wl,--gc-sections)
+    -Wl,-Map=${PROJECT_BINARY_DIR}/${PROJECT_NAME}.map,--cref
+    -Wl,--gc-sections
+)
 
 # Uncomment to mitigate c++17 absolute addresses warnings
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} 
@@ -128,8 +129,6 @@ else ()
 endif ()
 
 #-----BUILD COMMANDS-----
-set(OUTPUT_NAME output)
-# set(OUTPUT_NAME ${PROJECT_NAME})
 add_executable(${OUTPUT_NAME}.elf ${C_SRC} ${C_LIBS} ${STARTUP_SCRIPT} ${LINKER_SCRIPT})
 set(HEX_FILE ${PROJECT_BINARY_DIR}/${OUTPUT_NAME}.hex)
 set(BIN_FILE ${PROJECT_BINARY_DIR}/${OUTPUT_NAME}.bin)
