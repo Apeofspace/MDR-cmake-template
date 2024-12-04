@@ -2,80 +2,37 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Init CMake",
       "type": "shell",
-      "command": "make cmake",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
-      "label": "Clean",
-      "type": "shell",
-      "command": "make clean",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
       "label": "Build",
-      "type": "shell",
-      "command": "make all",
+      "command": "make",
+      "args": ["all", "-j8"],
       "group": {
         "kind": "build",
         "isDefault": true
       }
     },
     {
-      "label": "flash-jlink-K1986BE92QI",
       "type": "shell",
-      "command": "JLinkExe",
-      "args": [
-        "-Device",
-        "K1986BE92QI",
-        "-If",
-        "JTAG",
-        "-Speed",
-        "1000",
-        "-JTAGConf",
-        "-1,-1",
-        "JLink/FlashMCU.jlink"
-      ],
-      "options": {
-        "cwd": "${workspaceRoot}"
-      },
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "dependsOn": "Build Firmware",
-      "problemMatcher": []
-    },
-    {
-      "label": "erase-jlink-K1986BE92QI",
-      "type": "shell",
-      "command": "JLinkExe",
-      "args": [
-        "-Device",
-        "K1986BE92QI",
-        "-If",
-        "JTAG",
-        "-Speed",
-        "1000",
-        "-JTAGConf",
-        "-1,-1",
-        "JLink/EraseMCU.jlink"
-      ],
-      "options": {
-        "cwd": "${workspaceRoot}"
-      },
+      "label": "Flash",
+      "command": "make",
+      "args": ["flash"],
+      "problemMatcher": [],
       "group": {
         "kind": "build",
         "isDefault": false
-      },
-      "problemMatcher": []
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Clean",
+      "command": "make",
+      "args": ["clean"],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
     }
   ]
 }
+
+
